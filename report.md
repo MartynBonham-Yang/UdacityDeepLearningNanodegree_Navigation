@@ -63,9 +63,11 @@ When our brain is learning how to behave in the world, there is always a trade-o
 
 In our code, this has a default value of 0, but we can modify this. 
 
-#### A note about deep q-learning
+#### A note about deep Q-learning
 
+In our code, we use a method of Q-learning called deep Q-learning. This involves using a neural network to approximate an action function. Over time, the neural network weights will be updated and will eventually come to approximate the optimal policy (because our problem is a finite Markov decision process). However, as DeepMind said in their paper introducing deep Q-learning, this process can be unstable or divergent as a neural network is a nonlinear function approximator for Q.
 
+Therefore, we use something called experience replay to help mitigate this. Experience replay is inspired by biology, adn is a mechanism that relies on random sampling of previous actions instead of only paying attention to the most recent action in order to choose how to proceed. This removes correlations in the sequence of observed outcomes and helps reduce instability.
 
 ------
 ### An explanation of model.py
@@ -80,6 +82,9 @@ When using the code provided by the UDacity Deep Q-learning exercise, we need to
 * Changing the score required for the code to declare `solved` from `200.0` to `13.0`;
 * Replaced the loop under `for t in range(max_t)` with the equivalent for this environment (also provided in the random agent model) - note that this is not exactly the same, because otherwise the agent would still select random actions, so we have retained `agent.step(....)` code;
 * Slightly modified the code so that weights only save if we have specified `train_mode = True`, because this code is taken from the Deep Q-learning lesson which doesn't have any such parameter.
+
+
+In particular, I did not modify any of the hyperparameters given by the Udacity sample code. 
 
 When creating a trail brain (with `num_episodes = 200` just to see if the code runs; let's call her "Belinda") after making these tweaks, we obtained the following result: 
 
@@ -96,35 +101,63 @@ Needless to say, this was a huge mistake, and we corrected it immediately to rea
 So, Carol is not a successfully trained brain (yet) but is a great improvement over Belinda or Roland and proof that we could be getting somewhere. Let's try running the model for more iterations, say up to 2000 as the default code includes, and training a 4th brain ("Dorothea"):
 
 `Episode 100	Average Score: 1.18`
+
 `Episode 200	Average Score: 4.98`
+
 `Episode 300	Average Score: 7.54`
+
 `Episode 400	Average Score: 9.67`
+
 `Episode 500	Average Score: 12.72`
+
 `Episode 510	Average Score: 13.01`
+
 `Environment solved in 410 episodes!	Average Score: 13.01`
 
 So our code can successfully train Dorothea to the required level in just 510 episodes! 
 
 -----
-NOTE: the default code that we are given in the Deep Q-learning notebook prints here `Environment solved in {num_episodes - 100} episodes!` and I am not sure what the purpose of the `-100` is... it seems wrong to me, but this sort of code is definitely required, as this is part of the rubric.
+
+NOTE: the default code that we are given in the Deep Q-learning notebook prints here `Environment solved in {num_episodes - 100} episodes!` and I am not sure what the purpose of the `-100` is... it seems wrong to me, but this sort of code is definitely required, as this is part of the rubric. I therefore will comment here - I think that this took 510 episodes to solve, not 410, but this may be an incorrect understanding of the code. 
+
 -----
 
-These weights have been saved. However, we need to do some testing, to validate these weights as useful ones, and to make sure that Dorothea can indeed perform at this level.
+These weights have been saved to the file `checkpoint.pth`, as per the project rubric. However, we need to do some testing, to validate these weights as useful ones, and to make sure that Dorothea can indeed perform at this level.
 
 ### Testing Dorothea, the trained brain
 
 Testing Dorothea the trained brain for a further 10 episodes resulted in the following outcome: 
 `Episode 1	Average Score: 13.00`
+
 `Episode 2	Average Score: 15.50`
+
 `Episode 3	Average Score: 17.67`
+
 `Episode 4	Average Score: 16.75`
+
 `Episode 5	Average Score: 16.40`
+
 `Episode 6	Average Score: 13.83`
+
 `Episode 7	Average Score: 13.29`
+
 `Episode 8	Average Score: 13.88`
+
 `Episode 9	Average Score: 13.56`
+
 `Episode 10	Average Score: 13.90`
 
 And thus we have successfully developed a brain which has a policy that returns an average reward > 13.0 when we ask it to go and collect bananas!
 
+#### Plot of Dorothea's rewards 
 
+This plot is taken from `Navigation.ipynb`. 
+[Plot of Dorothea's training rewards over episodes](https://user-images.githubusercontent.com/57990075/167158661-8e73b278-b630-40d4-9d51-bed084ef7654.png)
+
+### Ideas for future work 
+
+Some ideas which I may consider for future work on this project: 
+
+1. Modifying further the hyperparameters, to gain better performance; 
+2. Learning from pixels extension project in the Udacity course; 
+3. Modifying the neural network used, perhaps to include either double or duelling Q-networks - this might improve stability in the results as we can see there is some instability. 
