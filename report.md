@@ -13,7 +13,8 @@ Let us quickly review the details of the state and action spaces for this projec
 
 Udacity provides us with a "starter code", namely, code for a brain which takes actions at random: 
 
-`env_info = env.reset(train_mode=False)[brain_name] # reset the environment
+```
+env_info = env.reset(train_mode=False)[brain_name] # reset the environment
 state = env_info.vector_observations[0]            # get the current state
 score = 0                                          # initialize the score
 while True:
@@ -25,7 +26,8 @@ while True:
     score += reward                                # update the score
     state = next_state                             # roll over the state to next time step
     if done:                                       # exit loop if episode finished
-        break`
+        break
+```
         
 This brain (let us call him "Roland", for "random") obtains the following results over 8 episdodes: 
 
@@ -100,19 +102,15 @@ Needless to say, this was a huge mistake, and we corrected it immediately to rea
 
 So, Carol is not a successfully trained brain (yet) but is a great improvement over Belinda or Roland and proof that we could be getting somewhere. Let's try running the model for more iterations, say up to 2000 as the default code includes, and training a 4th brain ("Dorothea"):
 
-`Episode 100	Average Score: 1.18`
-
-`Episode 200	Average Score: 4.98`
-
-`Episode 300	Average Score: 7.54`
-
-`Episode 400	Average Score: 9.67`
-
-`Episode 500	Average Score: 12.72`
-
-`Episode 510	Average Score: 13.01`
-
-`Environment solved in 410 episodes!	Average Score: 13.01`
+```
+Episode 100	Average Score: 1.18
+Episode 200	Average Score: 4.98
+Episode 300	Average Score: 7.54
+Episode 400	Average Score: 9.67
+Episode 500	Average Score: 12.72
+Episode 510	Average Score: 13.01
+Environment solved in 410 episodes!	Average Score: 13.01
+```
 
 So our code can successfully train Dorothea to the required level in just 510 episodes! 
 
@@ -127,32 +125,25 @@ These weights have been saved to the file `checkpoint.pth`, as per the project r
 ### Testing Dorothea, the trained brain
 
 Testing Dorothea the trained brain for a further 10 episodes resulted in the following outcome: 
-`Episode 1	Average Score: 13.00`
-
-`Episode 2	Average Score: 15.50`
-
-`Episode 3	Average Score: 17.67`
-
-`Episode 4	Average Score: 16.75`
-
-`Episode 5	Average Score: 16.40`
-
-`Episode 6	Average Score: 13.83`
-
-`Episode 7	Average Score: 13.29`
-
-`Episode 8	Average Score: 13.88`
-
-`Episode 9	Average Score: 13.56`
-
-`Episode 10	Average Score: 13.90`
+```
+Episode 1	Average Score: 13.00
+Episode 2	Average Score: 15.50
+Episode 3	Average Score: 17.67
+Episode 4	Average Score: 16.75
+Episode 5	Average Score: 16.40
+Episode 6	Average Score: 13.83
+Episode 7	Average Score: 13.29
+Episode 8	Average Score: 13.88
+Episode 9	Average Score: 13.56
+Episode 10	Average Score: 13.90
+```
 
 And thus we have successfully developed a brain which has a policy that returns an average reward > 13.0 when we ask it to go and collect bananas!
 
 #### Plot of Dorothea's rewards 
 
 This plot is taken from `Navigation.ipynb`. 
-[Plot of Dorothea's training rewards over episodes](https://user-images.githubusercontent.com/57990075/167158661-8e73b278-b630-40d4-9d51-bed084ef7654.png)
+![Plot of Dorothea's training rewards over episodes](https://user-images.githubusercontent.com/57990075/167160373-322821a1-5922-4d59-96a0-d63fb8aadc79.png)
 
 ### Ideas for future work 
 
