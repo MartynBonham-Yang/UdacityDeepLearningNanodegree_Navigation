@@ -74,7 +74,7 @@ Therefore, we use something called experience replay to help mitigate this. Expe
 ------
 ### An explanation of model.py
 
-The python code file `model.py` contains the method by which we calculate the Q-function to use. This code allows us to make use of deep q-learning; that is, it lets us use a deep neural network to estimate the Q-function.  
+The python code file `model.py` contains the method by which we calculate the Q-function to use. This code allows us to make use of deep q-learning; that is, it lets us use a deep neural network to estimate the Q-function.  I have used the code provided by Udacity for the Deep Q-Learning lesson solution here as it works well, and have not needed to make any serious changes when adapting this for my own use. 
 
 -------
 
