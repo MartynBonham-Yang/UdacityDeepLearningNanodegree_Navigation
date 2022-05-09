@@ -67,14 +67,19 @@ In our code, this has a default value of 0, but we can modify this.
 
 #### A note about deep Q-learning
 
-In our code, we use a method of Q-learning called deep Q-learning. This involves using a neural network to approximate an action function. Over time, the neural network weights will be updated and will eventually come to approximate the optimal policy (because our problem is a finite Markov decision process). However, as DeepMind said in their paper introducing deep Q-learning, this process can be unstable or divergent as a neural network is a nonlinear function approximator for Q.
+In our code, we use a method of Q-learning called deep Q-learning. This involves using a neural network to approximate an action function. Over time, the neural network weights will be updated and will eventually come to approximate the optimal policy (because our problem is a finite Markov decision process). 
 
-Therefore, we use something called experience replay to help mitigate this. Experience replay is inspired by biology, adn is a mechanism that relies on random sampling of previous actions instead of only paying attention to the most recent action in order to choose how to proceed. This removes correlations in the sequence of observed outcomes and helps reduce instability.
+The neural network which is used in this project uses 3 fully-connected layers with 64, 64, and 4 nodes respectively. [The choice of 64 is a hyperparameter. See "An explanation of model.py for my reasoning choosing 64.] The input to the first layer is 37-dimensional (because of the state space being so), and the output is 128-dimensional; after this, the next layer has 128-D input and 64-D output and then the final layer has an output of the action space size once again. 
+
+However, as DeepMind said in their paper introducing deep Q-learning, this process can be unstable or divergent as a neural network is a nonlinear function approximator for Q. Therefore, we use something called experience replay to help mitigate this. Experience replay is inspired by biology, adn is a mechanism that relies on random sampling of previous actions instead of only paying attention to the most recent action in order to choose how to proceed. This removes correlations in the sequence of observed outcomes and helps reduce instability.
+
 
 ------
 ### An explanation of model.py
 
 The python code file `model.py` contains the method by which we calculate the Q-function to use. This code allows us to make use of deep q-learning; that is, it lets us use a deep neural network to estimate the Q-function.  I have used the code provided by Udacity for the Deep Q-Learning lesson solution here as it works well, and have not needed to make any serious changes when adapting this for my own use. 
+
+The hyperparameters chosen in `model.py`, namely the number of units in fc1 and fc2, are chosen as the number of nodes in the hidden layers of the model. These values are both set to 64; this is a common choice and was also the default used by Udacity. Changing these values was not necessary to make the model perform better. 
 
 -------
 
@@ -84,9 +89,11 @@ When using the code provided by the UDacity Deep Q-learning exercise, we need to
 * Changing the score required for the code to declare `solved` from `200.0` to `13.0`;
 * Replaced the loop under `for t in range(max_t)` with the equivalent for this environment (also provided in the random agent model) - note that this is not exactly the same, because otherwise the agent would still select random actions, so we have retained `agent.step(....)` code;
 * Slightly modified the code so that weights only save if we have specified `train_mode = True`, because this code is taken from the Deep Q-learning lesson which doesn't have any such parameter.
-
-
-In particular, I did not modify any of the hyperparameters given by the Udacity sample code. 
+* in `agent.py`, we used hyperparameters of the following values. These are all sensible initial starting choieds and worked out very well in this project as we did not need to modify them further: 
+* BATCH_SIZE = 64         
+* GAMMA (future time-step discount rate) = 0.99           
+* TAU (soft-update for target parameters hyperparameter) = 1e-3              
+* LR (learning rate) = 5e-4            
 
 When creating a trail brain (with `num_episodes = 200` just to see if the code runs; let's call her "Belinda") after making these tweaks, we obtained the following result: 
 
