@@ -69,8 +69,6 @@ In our code, this has a default value of 0, but we can modify this.
 
 In our code, we use a method of Q-learning called deep Q-learning. This involves using a neural network to approximate an action function. Over time, the neural network weights will be updated and will eventually come to approximate the optimal policy (because our problem is a finite Markov decision process). 
 
-The neural network which is used in this project uses 3 fully-connected layers with 64, 64, and 4 nodes respectively. [The choice of 64 is a hyperparameter. See "An explanation of model.py for my reasoning choosing 64.] The input to the first layer is 37-dimensional (because of the state space being so), and the output is 128-dimensional; after this, the next layer has 128-D input and 64-D output and then the final layer has an output of the action space size once again. 
-
 However, as DeepMind said in their paper introducing deep Q-learning, this process can be unstable or divergent as a neural network is a nonlinear function approximator for Q. Therefore, we use something called experience replay to help mitigate this. Experience replay is inspired by biology, adn is a mechanism that relies on random sampling of previous actions instead of only paying attention to the most recent action in order to choose how to proceed. This removes correlations in the sequence of observed outcomes and helps reduce instability.
 
 
@@ -78,6 +76,8 @@ However, as DeepMind said in their paper introducing deep Q-learning, this proce
 ### An explanation of model.py
 
 The python code file `model.py` contains the method by which we calculate the Q-function to use. This code allows us to make use of deep q-learning; that is, it lets us use a deep neural network to estimate the Q-function.  I have used the code provided by Udacity for the Deep Q-Learning lesson solution here as it works well, and have not needed to make any serious changes when adapting this for my own use. 
+
+The neural network which is used in this project uses 3 fully-connected layers with 64, 64, and 4 nodes respectively. [The choice of 64 is a hyperparameter. See "An explanation of model.py for my reasoning choosing 64.] The input to the first layer is 37-dimensional (because of the state space being so), and the output is 64-dimensional; after this, the next layer has 64-D input and 64-D output and then the final layer has an output of the action size (that is, 1-dimensional). The neural network uses the ReLU activation function.
 
 The hyperparameters chosen in `model.py`, namely the number of units in fc1 and fc2, are chosen as the number of nodes in the hidden layers of the model. These values are both set to 64; this is a common choice and was also the default used by Udacity. Changing these values was not necessary to make the model perform better. 
 
